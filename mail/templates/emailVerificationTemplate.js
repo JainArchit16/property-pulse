@@ -24,7 +24,7 @@ const otpTemplate = (otp, link) => {
               }
       
               .logo {
-                  max-width: 200px;
+                  max-width: 120px;
                   margin-bottom: 20px;
               }
       
@@ -66,8 +66,9 @@ const otpTemplate = (otp, link) => {
       
       <body>
           <div class="container">
-              <a href=${link}><img class="logo"
-                      src="https://i.ibb.co/7Xyj3PC/logo.png" alt="PropertyPulse Logo"></a>
+              <a href=${link}>
+                      <img className='h-10 w-auto logo' src="https://i.ibb.co/Kx4Xd1y/logo.png" alt='PropertyPulse' />
+          </a>
               <div class="message">OTP Verification Email</div>
               <div class="body">
                   <p>Dear User,</p>

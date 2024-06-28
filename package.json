@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "cloudinary": "^2.2.0",
     "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
     "mapbox-gl": "^3.4.0",
     "mongodb": "^6.8.0",
     "mongoose": "^8.4.4",

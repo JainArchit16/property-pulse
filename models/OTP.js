@@ -20,12 +20,14 @@ const OTPSchema = new Schema({
   },
 });
 
+const OTP = models.OTP || model('OTP', OTPSchema);
+
 async function sendVerificationEmail(email, otp) {
   try {
     const link = process.env.FRONTEND_LINK;
     let info = await mailSender(
       email,
-      'Verification Mail from Study Notion',
+      'Verification Mail from Property Pulse',
       otpTemplate(otp, link)
     );
     console.log(info);
@@ -38,7 +40,5 @@ OTPSchema.pre('save', async function (next) {
   await sendVerificationEmail(this.email, this.otp);
   next();
 });
-
-const OTP = models.OTPSchema || model('OTP', OTPSchema);
 
 export default OTP;
