@@ -1,13 +1,15 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import logo from '@/assets/images/logo-white.png';
 import profileDefault from '@/assets/images/profile.png';
-import { FaGoogle } from 'react-icons/fa';
-import { signIn, signOut, useSession, getProviders } from 'next-auth/react';
+import { IoMdLogIn } from 'react-icons/io';
+import { useSession } from 'next-auth/react';
 import UnreadMessageCount from './UnreadMessageCount';
+import { doLogout } from '@/utils/loginHelper';
+import { SiGnuprivacyguard } from 'react-icons/si';
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -15,18 +17,19 @@ const Navbar = () => {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const [providers, setProviders] = useState(null);
+  // const [providers, setProviders] = useState(null);
 
   const pathname = usePathname();
 
   useEffect(() => {
-    const setAuthProviders = async () => {
-      const res = await getProviders();
-      setProviders(res);
-    };
-
-    setAuthProviders();
+    // const setAuthProviders = async () => {
+    //   const res = await getProviders();
+    //   setProviders(res);
+    // };
+    // setAuthProviders();
   }, []);
+
+  const router = useRouter();
 
   return (
     <nav className='bg-blue-700 border-b border-blue-500'>
@@ -106,18 +109,21 @@ const Navbar = () => {
           {/* <!-- Right Side Menu (Logged Out) --> */}
           {!session && (
             <div className='hidden md:block md:ml-6'>
-              <div className='flex items-center'>
-                {providers &&
-                  Object.values(providers).map((provider, index) => (
-                    <button
-                      onClick={() => signIn(provider.id)}
-                      key={index}
-                      className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
-                    >
-                      <FaGoogle className='text-white mr-2' />
-                      <span>Login or Register</span>
-                    </button>
-                  ))}
+              <div className='flex items-center gap-2'>
+                <button
+                  onClick={() => router.push('/login')}
+                  className='flex items-center text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
+                >
+                  <IoMdLogIn className='text-white mr-2' />
+                  <span>Login</span>
+                </button>
+                <button
+                  onClick={() => router.push('/signup')}
+                  className='flex items-center text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
+                >
+                  <SiGnuprivacyguard className='text-white mr-2' />
+                  <span>Register</span>
+                </button>
               </div>
             </div>
           )}
@@ -209,7 +215,7 @@ const Navbar = () => {
                     <button
                       onClick={() => {
                         setIsProfileMenuOpen(false);
-                        signOut();
+                        doLogout();
                       }}
                       className='block px-4 py-2 text-sm text-gray-700'
                       role='menuitem'
@@ -257,17 +263,24 @@ const Navbar = () => {
               </Link>
             )}
 
-            {!session &&
-              providers &&
-              Object.values(providers).map((provider, index) => (
+            {!session && (
+              <div className='flex items-center gap-2'>
                 <button
-                  onClick={() => signIn(provider.id)}
-                  key={index}
-                  className='flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
+                  onClick={() => router.push('/login')}
+                  className='flex items-center text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
                 >
-                  <span>Login or Register</span>
+                  <IoMdLogIn className='text-white mr-2' />
+                  <span>Login</span>
                 </button>
-              ))}
+                <button
+                  onClick={() => router.push('/signup')}
+                  className='flex items-center text-white bg-black hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
+                >
+                  <SiGnuprivacyguard className='text-white mr-2' />
+                  <span>Register</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

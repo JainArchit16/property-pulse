@@ -20,10 +20,9 @@ const OTPSchema = new Schema({
   },
 });
 
-const OTP = models.OTP || model('OTP', OTPSchema);
-
 async function sendVerificationEmail(email, otp) {
   try {
+    console.log('hello');
     const link = process.env.FRONTEND_LINK;
     let info = await mailSender(
       email,
@@ -40,5 +39,7 @@ OTPSchema.pre('save', async function (next) {
   await sendVerificationEmail(this.email, this.otp);
   next();
 });
+
+const OTP = models.OTP || model('OTP', OTPSchema);
 
 export default OTP;

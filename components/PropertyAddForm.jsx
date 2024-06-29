@@ -1,7 +1,12 @@
 'use client';
+import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 
 const PropertyAddForm = () => {
+  const { data: session } = useSession();
+
+  const profileName = session?.user?.name;
+  const profileEmail = session?.user?.email;
   const [mounted, setMounted] = useState(false);
   const [fields, setFields] = useState({
     type: '',
@@ -23,8 +28,8 @@ const PropertyAddForm = () => {
       nightly: '',
     },
     seller_info: {
-      name: '',
-      email: '',
+      name: profileName,
+      email: profileEmail,
       phone: '',
     },
     images: [],
@@ -499,41 +504,6 @@ const PropertyAddForm = () => {
           </div>
         </div>
 
-        <div className='mb-4'>
-          <label
-            htmlFor='seller_name'
-            className='block text-gray-700 font-bold mb-2'
-          >
-            Seller Name
-          </label>
-          <input
-            type='text'
-            id='seller_name'
-            name='seller_info.name'
-            className='border rounded w-full py-2 px-3'
-            placeholder='Name'
-            value={fields.seller_info.name}
-            onChange={handleChange}
-          />
-        </div>
-        <div className='mb-4'>
-          <label
-            htmlFor='seller_email'
-            className='block text-gray-700 font-bold mb-2'
-          >
-            Seller Email
-          </label>
-          <input
-            type='email'
-            id='seller_email'
-            name='seller_info.email'
-            className='border rounded w-full py-2 px-3'
-            placeholder='Email address'
-            required
-            value={fields.seller_info.email}
-            onChange={handleChange}
-          />
-        </div>
         <div className='mb-4'>
           <label
             htmlFor='seller_phone'

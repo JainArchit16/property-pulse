@@ -3,16 +3,25 @@ import User from '@/models/User';
 import bcrypt from 'bcrypt';
 import connectDB from '@/config/database';
 
-export const POST = async (req) => {
+export const POST = async (request) => {
   try {
     await connectDB();
-    const formData = await req.formData();
+    // console.log(await req.body.json(), 'hello');
+    const formData = await request.formData();
     const email = formData.get('email');
     const username = formData.get('username');
     const password = formData.get('password');
     const confirmPassword = formData.get('confirmPassword');
     const otp = formData.get('otp');
 
+    // console.log(JSON.parse(req.body));
+    // const body = await req.json();
+
+    // const { email, username, password, confirmPassword, otp } = body;
+
+    // console.log(body);
+
+    console.log('heeloo2');
     if (!username || !email || !password || !confirmPassword || !otp) {
       return new Response(
         JSON.stringify({
@@ -89,6 +98,7 @@ export const POST = async (req) => {
       { status: 200 }
     );
   } catch (err) {
+    console.log(err.message);
     return new Response(
       JSON.stringify({
         message: 'Failed to sign up',

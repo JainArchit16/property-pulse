@@ -81,17 +81,17 @@ const ProfilePage = () => {
             <div className='md:w-1/4 mx-20 mt-10'>
               <div className='mb-4'>
                 <Image
-                  className='h-32 w-32 md:h-48 md:w-48 rounded-full mx-auto md:mx-0'
+                  className='h-24 w-24 rounded-full mx-auto md:mx-0'
                   src={profileImage || profileDefault}
-                  width={200}
-                  height={200}
+                  width={150}
+                  height={150}
                   alt='User'
                 />
               </div>
-              <h2 className='text-2xl mb-4'>
+              <h2 className='text-xl mb-4'>
                 <span className='font-bold block'>Name: </span> {profileName}
               </h2>
-              <h2 className='text-2xl'>
+              <h2 className='text-xl'>
                 <span className='font-bold block'>Email: </span> {profileEmail}
               </h2>
             </div>
