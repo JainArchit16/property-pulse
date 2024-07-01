@@ -21,7 +21,7 @@ export const GET = async (request, { params }) => {
 };
 
 // DELETE /api/properties/:id
-export const DELETE = async (request, { params }) => {
+export const DELETE = async (_, { params }) => {
   try {
     const propertyId = params.id;
 
@@ -45,6 +45,20 @@ export const DELETE = async (request, { params }) => {
       return new Response('Unauthorized', { status: 401 });
     }
 
+    // extract public id's from image url in DB
+    const publicIds = property.images.map((imageUrl) => {
+      const parts = imageUrl.split('/');
+      return parts.at(-1).split('.').at(0);
+    });
+
+    // Delete images from Cloudinary
+    if (publicIds.length > 0) {
+      for (let publicId of publicIds) {
+        await cloudinary.uploader.destroy('propertypulse/' + publicId);
+      }
+    }
+
+    // Proceed with property deletion
     await property.deleteOne();
 
     return new Response('Property Deleted', {

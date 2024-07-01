@@ -87,6 +87,11 @@ const PropertyAddForm = () => {
   };
 
   const handleImageChange = (e) => {
+    if (e.target.files.length > 4) {
+      e.target.value = '';
+      toast.error('You can select up to 4 images in total.');
+      return;
+    }
     const { files } = e.target;
 
     // Clone images array

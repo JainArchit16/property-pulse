@@ -27,6 +27,10 @@ const Navbar = () => {
     //   setProviders(res);
     // };
     // setAuthProviders();
+    // NOTE: close mobile menu if the viewport size is changed
+    window.addEventListener('resize', () => {
+      setIsMobileMenuOpen(false);
+    });
   }, []);
 
   const router = useRouter();
