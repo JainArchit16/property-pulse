@@ -118,6 +118,8 @@ const PropertyEditForm = () => {
 
     try {
       const formData = new FormData(e.target);
+      formData.seller_name = fields.seller_info.name;
+      formData.seller_email = fields.seller_info.email;
 
       const res = await fetch(`/api/properties/${id}`, {
         method: 'PUT',
@@ -534,7 +536,7 @@ const PropertyEditForm = () => {
           </div>
         </div>
 
-        <div className='mb-4'>
+        {/* <div className='mb-4'>
           <label
             htmlFor='seller_name'
             className='block text-gray-700 font-bold mb-2'
@@ -568,7 +570,7 @@ const PropertyEditForm = () => {
             value={fields.seller_info.email}
             onChange={handleChange}
           />
-        </div>
+        </div> */}
         <div className='mb-4'>
           <label
             htmlFor='seller_phone'
